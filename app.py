@@ -172,22 +172,22 @@ if page == "Dashboard":
     with col1:
         avg_new = df[df['Kondisi'] == 'Baru']['Harga'].mean()
         avg_used = df[df['Kondisi'] == 'Bekas']['Harga'].mean()
-        st.metric("Rata-rata Harga Kamera Baru", f"Rp {avg_new:,.0f}")
-        st.metric("Rata-rata Harga Kamera Bekas", f"Rp {avg_used:,.0f}")
+        st.metric("Rata-rata Harga Kamera Baru", format_price(avg_new))
+        st.metric("Rata-rata Harga Kamera Bekas", format_price(avg_used))
 
     # Highest prices
     with col2:
         max_new = df[df['Kondisi'] == 'Baru']['Harga'].max()
         max_used = df[df['Kondisi'] == 'Bekas']['Harga'].max()
-        st.metric("Harga Tertinggi Kamera Baru", f"Rp {max_new:,.0f}")
-        st.metric("Harga Tertinggi Kamera Bekas", f"Rp {max_used:,.0f}")
+        st.metric("Harga Tertinggi Kamera Baru", format_price(max_new))
+        st.metric("Harga Tertinggi Kamera Bekas", format_price(max_used))
 
     # Lowest prices
     with col3:
         min_new = df[df['Kondisi'] == 'Baru']['Harga'].min()
         min_used = df[df['Kondisi'] == 'Bekas']['Harga'].min()
-        st.metric("Harga Terendah Kamera Baru", f"Rp {min_new:,.0f}")
-        st.metric("Harga Terendah Kamera Bekas", f"Rp {min_used:,.0f}")
+        st.metric("Harga Terendah Kamera Baru", format_price(min_new))
+        st.metric("Harga Terendah Kamera Bekas", format_price(min_used))
 
     # Distribution plots row
     st.subheader("Distribusi dan Perbandingan")
