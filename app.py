@@ -118,7 +118,7 @@ def train_models(df):
     new_metrics = {
         'MAPE': mean_absolute_percentage_error(y_new_test, y_new_pred),
         'MAE': mean_absolute_error(y_new_test, y_new_pred),
-        'MSE': mean_squared_error(y_new_test, y_new_pred),
+        'M': mean_squared_error(y_new_test, y_new_pred),
         'R2': r2_score(y_new_test, y_new_pred)
     }
 
@@ -126,7 +126,7 @@ def train_models(df):
     used_metrics = {
         'MAPE': mean_absolute_percentage_error(y_used_test, y_used_pred),
         'MAE': mean_absolute_error(y_used_test, y_used_pred),
-        'MSE': mean_squared_error(y_used_test, y_used_pred),
+        'M': mean_squared_error(y_used_test, y_used_pred),
         'R2': r2_score(y_used_test, y_used_pred)
     }
 
@@ -332,10 +332,10 @@ else:
             st.metric("MAPE", f"{metrics['MAPE']*100:.2f}%")
             st.caption("Mean Absolute Percentage Error")
         with col2:
-            st.metric("MAE", f"Rp {metrics['MAE']:,.0f}")
+            st.metric("MAE", format_price(metrics['MAE']))
             st.caption("Mean Absolute Error")
         with col3:
-            st.metric("MSE", f"Rp {metrics['MSE']:,.0f}")
+            st.metric("MSE", format_price(metrics['MSE']))
             st.caption("Mean Squared Error")
         with col4:
             st.metric("R²", f"{metrics['R2']:.3f}")
@@ -350,6 +350,10 @@ else:
         ].head()
 
         if not similar_cameras.empty:
+            similar_cameras = similar_cameras.copy()  # Hindari SettingWithCopyWarning
+            similar_cameras['Harga'] = similar_cameras['Harga'].apply(format_price)
+            similar_cameras['Tahun Rilis'] = similar_cameras['Tahun Rilis'].astype(str).str.replace('.', '')
+
             st.dataframe(similar_cameras[['Model', 'Harga', 'Jumlah piksel', 'Tahun Rilis']])
         else:
             st.info("Tidak ditemukan kamera dengan harga serupa dalam database")
