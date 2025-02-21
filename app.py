@@ -335,7 +335,7 @@ else:
             st.metric("MAE", format_price(metrics['MAE']))
             st.caption("Mean Absolute Error")
         with col3:
-            st.metric("MSE", format_price(metrics['MSE']))
+            st.metric("M", format_price(metrics['M']))
             st.caption("Mean Squared Error")
         with col4:
             st.metric("R²", f"{metrics['R2']:.3f}")
